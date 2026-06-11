@@ -45,3 +45,62 @@ SELECT title  FROM movies ORDER BY title ASC LIMIT 5;
 --List the next five Pixar movies sorted alphabetically
 SELECT * FROM movies ORDER BY TITLE ASC LIMIT 5 OFFSET 5;
 
+
+--Exercise 5 — Tasks Multi-table queries with JOINs 
+--(MOVIES and BOXOFFICE TABLES ARE USED)
+
+--Find the domestic and international sales for each movie
+
+SELECT title, Domestic_sales, International_sales 
+    FROM movies 
+    INNER JOIN Boxoffice 
+    ON id = Movie_id; 
+
+--Show the sales numbers for each movie that did better internationally rather than domestically
+
+SELECT title, domestic_sales, international_sales
+    FROM movies
+    JOIN boxoffice
+    ON movies.id = boxoffice.movie_id
+    WHERE international_sales > domestic_sales;
+
+--List all the movies by their ratings in descending order
+
+SELECT title, rating
+FROM movies
+  JOIN boxoffice
+    ON movies.id = boxoffice.movie_id
+ ORDER BY Rating DESC;
+
+
+--Exercise 6 — Tasks 
+--(BUILDINGS and EMPLOYEES TABLES ARE USED)
+
+--Find the list of all buildings that have employees
+
+SELECT DISTINCT building FROM employees;
+
+--Find the list of all buildings and their capacity
+
+SELECT building_name , capacity FROM buildings ;
+
+--List all buildings and the distinct employee roles in each building (including empty buildings)
+
+SELECT DISTINCT building_name, role 
+FROM buildings 
+  LEFT JOIN employees
+    ON building_name = building;
+
+--Exercise 7 — Tasks(Select query with constraints on NULL values)
+--(BUILDINGS and EMPLOYEES TABLES ARE USED)
+
+--Find the name and role of all employees who have not been assigned to a building
+
+SELECT name, role FROM employees WHERE Building IS NULL ;
+
+--Find the names of the buildings that hold no employees
+
+SELECT building_name , name FROM buildings b
+    LEFT JOIN Employees e 
+    ON b.building_name = e.Building 
+    WHERE name IS  NULL ;
