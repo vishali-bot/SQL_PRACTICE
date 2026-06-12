@@ -104,3 +104,79 @@ SELECT building_name , name FROM buildings b
     LEFT JOIN Employees e 
     ON b.building_name = e.Building 
     WHERE name IS  NULL ;
+
+--Exercise 8 — Tasks (Queries with expressions)
+--(MOVIES and BOXOFFICE TABLES ARE USED)
+
+--List all movies and their combined sales in millions of dollars
+
+SELECT title, (domestic_sales + international_sales) / 1000000 AS millions
+FROM movies
+  JOIN boxoffice
+    ON movies.id = boxoffice.movie_id;
+
+--List all movies and their ratings in percent
+
+SELECT title, rating * 10 AS percent
+FROM movies
+  JOIN boxoffice
+    ON movies.id = boxoffice.movie_id;
+
+--List all movies that were released on even number years
+
+SELECT title, year
+FROM movies
+WHERE year % 2 = 0;
+
+
+--Exercise 9 — Tasks (Queries with aggregates)
+--(EMPLOYEES TABLE USED)
+
+
+--Find the longest time that an employee has been at the studio
+
+SELECT name,MAX(years_employed) FROM employees;
+
+--For each role, find the average number of years employed by employees in that role
+
+SELECT role ,AVG(years_employed) FROM employees
+GROUP BY role;
+
+--Find the total number of employee years worked in each building
+
+SELECT role, building, SUM(years_employed) AS Total_no_emp 
+FROM employees
+GROUP BY building ;
+
+--Find the number of Artists in the studio (without a HAVING clause)
+
+SELECT role, COUNT(role) FROM employees where role = 'Artist';
+
+--Find the number of Employees of each role in the studio
+
+SELECT role, COUNT(name) FROM employees 
+GROUP BY role ;
+
+--Find the total number of years employed by all Engineers
+
+SELECT role , SUM(years_employed) FROM employees
+GRoup BY role
+HAVING role = 'Engineer';
+
+
+--Exercise 10 — Tasks (Order of execution of a Query)
+--(MOVIES and BOXOFFICE TABLES ARE USED)
+
+--Find the number of movies each director has directed ✓
+
+SELECT  COUNT(title) AS no_movies , director 
+FROM Movies
+GROUP BY director;
+
+--Find the total domestic and international sales that can be attributed to each director
+
+SELECT  director,SUM(domestic_sales + international_sales)  AS Total_Sales
+FROM Movies m
+INNER JOIN boxoffice b
+ON m.id = b.movie_id
+GROUP BY director;
