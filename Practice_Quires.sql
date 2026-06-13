@@ -180,3 +180,36 @@ FROM Movies m
 INNER JOIN boxoffice b
 ON m.id = b.movie_id
 GROUP BY director;
+
+
+--Exercise 11 — Tasks(Inserting rows)
+
+--Add the studio's new production, Toy Story 4 to the list of movies (you can use any director)
+
+INSERT INTO movies 
+VALUES (4, "Toy Story 4", "El Directore", 2015, 90);
+
+--Toy Story 4 has been released to critical acclaim! It had a rating of 8.7, and made 340 million domestically and 270 million internationally. Add the record to the BoxOffice table.
+
+INSERT INTO boxoffice  
+VALUES (4,  8.7, 340, 270);
+
+--Exercise 12 — Tasks(Updating rows)
+
+--The director for A Bug's Life is incorrect, it was actually directed by John Lasseter
+
+UPDATE movies
+SET director = "John Lasseter"
+WHERE id = 2;
+
+--The year that Toy Story 2 was released is incorrect, it was actually released in 1999
+
+UPDATE movies
+SET year = 1999
+WHERE id = 3;
+
+--Both the title and director for Toy Story 8 is incorrect! The title should be "Toy Story 3" and it was directed by Lee Unkrich
+
+UPDATE movies
+SET title =  "Toy Story 3" ,  director = "Lee Unkrich"
+WHERE id = 11 ;
