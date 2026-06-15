@@ -213,3 +213,34 @@ WHERE id = 3;
 UPDATE movies
 SET title =  "Toy Story 3" ,  director = "Lee Unkrich"
 WHERE id = 11 ;
+
+--Exercise 13 — Tasks(Deleting rows)
+
+--This database is getting too big, lets remove all movies that were released before 2005.
+
+DELETE FROM movies
+WHERE year < 2005;
+
+--Andrew Stanton has also left the studio, so please remove all movies directed by him.
+
+DELETE FROM movies
+WHERE director = "Andrew Stanton";
+
+
+
+--Exercise 14 — Tasks(Creating tables)
+
+--Create a new table named Database with the following columns:
+--Name A string (text) describing the name of the database
+--Version A number (floating point) of the latest version of this database
+--Download_count An integer count of the number of times this database was downloaded
+
+CREATE TABLE IF NOT EXISTS Database(
+    Name Varchar(50),
+    Version NUMERIC(10,3),
+    Download_count INTEGER
+); 
+
+SELECT * FROM database;
+
+
