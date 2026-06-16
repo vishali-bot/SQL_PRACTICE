@@ -243,4 +243,22 @@ CREATE TABLE IF NOT EXISTS Database(
 
 SELECT * FROM database;
 
+--Exercise 15 — Tasks (Altering tables)
 
+--Add a column named Aspect_ratio with a FLOAT data type to store the aspect-ratio each movie was released in.
+
+ALTER TABLE movies ADD COLUMN Aspect_ratio FLOAT;
+
+--Add another column named Language with a TEXT data type to store the language that the movie was released in. Ensure that the default for this language is English.
+
+ALTER TABLE movies ADD COLUMN Language TEXT DEFAULT "English";
+
+--Exercise 16 — Tasks ()
+
+--clean up by removing the Movies table
+
+DROP TABLE movies;
+
+--And drop the BoxOffice table as well
+
+DROP TABLE movies;

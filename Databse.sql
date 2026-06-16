@@ -1,3 +1,19 @@
+/*SQL Learning
+
+Completed SQL practice exercises from SQLBolt covering:
+
+- SELECT
+- WHERE
+- ORDER BY
+- INSERT
+- UPDATE
+- DELETE
+- JOINs
+- Aggregate Functions
+- GROUP BY
+- HAVING
+*/
+
 --Create Database
 
 CREATE DATABASE Practice_SQL;
