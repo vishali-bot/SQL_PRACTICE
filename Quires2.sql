@@ -95,7 +95,33 @@ JOIN orders
 ON orders.account_id = accounts.id
 WHERE standard_qty > 100;
 
+5) SELECT r.name region, a.name account, o.total_amt_usd/(o.total + 0.01) unit_price
+FROM region r
+JOIN sales_reps s
+ON s.region_id = r.id
+JOIN accounts a
+ON a.sales_rep_id = s.id
+JOIN orders o
+ON o.account_id = a.id
+WHERE o.standard_qty > 100 AND o.poster_qty > 50
+ORDER BY unit_price;
 
+6) SELECT r.name region, a.name account, o.total_amt_usd/(o.total + 0.01) unit_price
+FROM region r
+JOIN sales_reps s
+ON s.region_id = r.id
+JOIN accounts a
+ON a.sales_rep_id = s.id
+JOIN orders o
+ON o.account_id = a.id
+WHERE o.standard_qty > 100 AND o.poster_qty > 50
+ORDER BY unit_price DESC;
+
+7) SELECT DISTINCT a.name, w.channel
+FROM accounts a
+JOIN web_events w
+ON a.id = w.account_id
+WHERE a.id = '1001';
 
 8) SELECT accounts.name,orders.occurred_at,
 orders.total, orders.total_amt_usd
@@ -103,4 +129,46 @@ FROM orders
 INNER JOIN accounts
 ON accounts.id = orders.account_id
 WHERE orders.occurred_at
-BETWEEN '2015-01-01' AND '2015-12-01';
+BETWEEN '2015-01-01' AND '2015-12-31'
+ORDER BY o.occurred_at DESC;
+
+
+--Find the total amount for each individual order that was spent on 
+--standard and gloss paper in the orders table. This should give a dollar amount for each order 
+--in the table.
+
+
+SELECT standard_amt_usd + gloss_amt_usd 
+AS total_standard_gloss
+FROM orders;
+
+--Though the price/standard_qty paper varies from one order to the next. 
+--I would like this ratio across all of the sales made in the orders table.
+
+
+SELECT SUM(standard_amt_usd)/SUM(standard_qty) 
+AS standard_price_per_unit
+FROM orders;
+
+
+/*Find the mean (AVERAGE) amount spent per order on each paper type, 
+as well as the mean amount of each paper type purchased per order. Your final 
+answer should have 6 values - one for each paper type for the average number of sales, as well as the average amount.*/
+
+SELECT AVG(standard_qty) mean_standard, AVG(gloss_qty) mean_gloss, 
+              AVG(poster_qty) mean_poster, AVG(standard_amt_usd) mean_standard_usd, 
+              AVG(gloss_amt_usd) mean_gloss_usd, AVG(poster_amt_usd) mean_poster_usd
+FROM orders;
+
+/*LEARNING -- This is more advanced than what we have covered so far 
+try finding - what is the MEDIAN total_usd spent on all orders? 
+Note, this is more advanced than the topics we have covered thus far to build a general solution, 
+but we can hard code a solution in the following way. */
+
+SELECT *
+FROM (SELECT total_amt_usd
+         FROM orders
+         ORDER BY total_amt_usd
+         LIMIT 3457) AS Table1
+ORDER BY total_amt_usd DESC
+LIMIT 2;
